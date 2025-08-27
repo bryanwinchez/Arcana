@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arcana</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Inter:wght@400;500;700&display=swap"
+        rel="stylesheet">
+    <style>
+        /* Definição de Temas com Variáveis CSS */
+        :root,
+        [data-theme="arcana"] {
+            --bg-primary: #1a1a2e;
+            --bg-secondary: #1e293b;
+            --bg-card: rgba(0, 0, 0, 0.2);
+            --text-primary: #e0e0e0;
+            --text-secondary: #a0aec0;
+            --text-header: #ffc700;
+            --accent-primary: #b8860b;
+            --accent-secondary: #daa520;
+            --border-primary: #b8860b;
+            --border-secondary: #4a5568;
+            --shadow-color: rgba(250, 204, 21, 0.4);
+            --shadow-hover-color: rgba(250, 204, 21, 0.8);
+            --button-primary-bg: #805ad5;
+            --button-primary-hover: #6b46c1;
+            --bg-image: url('https://www.transparenttextures.com/patterns/stardust.png');
+        }
+
+        [data-theme="sonserina"] {
+            --bg-primary: #0D1A13;
+            --bg-secondary: #1A241F;
+            --bg-card: rgba(0, 0, 0, 0.2);
+            --text-primary: #C0C0C0;
+            --text-secondary: #a0aec0;
+            --text-header: #439E62;
+            --accent-primary: #2A623D;
+            --accent-secondary: #439E62;
+            --border-primary: #2A623D;
+            --border-secondary: #2d3748;
+            --shadow-color: rgba(10, 150, 90, 0.4);
+            --shadow-hover-color: rgba(10, 150, 90, 0.8);
+            --button-primary-bg: #2A623D;
+            --button-primary-hover: #439E62;
+            --bg-image: url('https://www.transparenttextures.com/patterns/dark-leather.png');
+        }
+
+        [data-theme="dark"] {
+            --bg-primary: #111827;
+            --bg-secondary: #1f2937;
+            --bg-card: rgba(0, 0, 0, 0.2);
+            --text-primary: #d1d5db;
+            --text-secondary: #9ca3af;
+            --text-header: #ef4444;
+            --accent-primary: #991b1b;
+            --accent-secondary: #b91c1c;
+            --border-primary: #991b1b;
+            --border-secondary: #4b5563;
+            --shadow-color: rgba(220, 38, 38, 0.4);
+            --shadow-hover-color: rgba(220, 38, 38, 0.8);
+            --button-primary-bg: #991b1b;
+            --button-primary-hover: #b91c1c;
+            --bg-image: url('https://www.transparenttextures.com/patterns/asfalt-dark.png');
+        }
+
+        [data-theme="celestial"] {
+            --bg-primary: #0f172a;
+            --bg-secondary: #1e293b;
+            --bg-card: rgba(15, 23, 42, 0.5);
+            --text-primary: #e2e8f0;
+            --text-secondary: #94a3b8;
+            --text-header: #a78bfa;
+            --accent-primary: #8b5cf6;
+            --accent-secondary: #a78bfa;
+            --border-primary: #8b5cf6;
+            --border-secondary: #475569;
+            --shadow-color: rgba(139, 92, 246, 0.4);
+            --shadow-hover-color: rgba(139, 92, 246, 0.8);
+            --button-primary-bg: #7c3aed;
+            --button-primary-hover: #6d28d9;
+            --bg-image: url('https://www.transparenttextures.com/patterns/starry-night.png');
+        }
+
+        [data-theme="pergaminho"] {
+            --bg-primary: #fdf6e3;
+            --bg-secondary: #f5e5c5;
+            --bg-card: rgba(245, 229, 197, 0.5);
+            --text-primary: #654321;
+            --text-secondary: #8d6e63;
+            --text-header: #8d6e63;
+            --accent-primary: #a1887f;
+            --accent-secondary: #8d6e63;
+            --border-primary: #a1887f;
+            --border-secondary: #d7ccc8;
+            --shadow-color: rgba(141, 110, 99, 0.4);
+            --shadow-hover-color: rgba(141, 110, 99, 0.8);
+            --button-primary-bg: #8d6e63;
+            --button-primary-hover: #6d4c41;
+            --bg-image: url('https://www.transparenttextures.com/patterns/old-paper-屑.png');
+        }
+
+        [data-theme="oceano"] {
+            --bg-primary: #0b192f;
+            --bg-secondary: #172a45;
+            --bg-card: rgba(17, 34, 64, 0.5);
+            --text-primary: #ccd6f6;
+            --text-secondary: #8892b0;
+            --text-header: #64ffda;
+            --accent-primary: #64ffda;
+            --accent-secondary: #7dd3fc;
+            --border-primary: #64ffda;
+            --border-secondary: #254265;
+            --shadow-color: rgba(100, 255, 218, 0.4);
+            --shadow-hover-color: rgba(100, 255, 218, 0.8);
+            --button-primary-bg: #0ea5e9;
+            --button-primary-hover: #0284c7;
+            --bg-image: url('https://www.transparenttextures.com/patterns/subtle-waves.png');
+        }
+
+
+        /* Estilos base e fontes personalizadas */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-primary);
+            background-image: var(--bg-image);
+            color: var(--text-primary);
+            transition: background-color 0.5s ease, color 0.5s ease;
+        }
+
+        .font-magic {
+            font-family: 'Cinzel', serif;
+        }
+
+        /* Efeito de brilho para elementos interativos */
+        .glowing-border {
+            transition: all 0.3s ease-in-out;
+            box-shadow: 0 0 5px var(--shadow-color);
+        }
+
+        .glowing-border:hover {
+            box-shadow: 0 0 15px var(--shadow-hover-color);
+        }
+
+        /* Estilização da barra de rolagem */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #000;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--accent-primary);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--accent-secondary);
+        }
+
+        /* Classes utilitárias */
+        .view-hidden {
+            display: none;
+        }
+
+        /* Estilo personalizado para o botão de upload de arquivo */
+        .custom-file-upload {
+            border: 1px solid var(--border-secondary);
+            display: inline-block;
+            padding: 6px 12px;
+            cursor: pointer;
+            background-color: var(--bg-secondary);
+            border-radius: 0.375rem;
+            color: var(--text-primary);
+        }
+
+        .custom-file-upload:hover {
+            background-color: var(--accent-primary);
+        }
+
+        /* Sistema de avaliação por estrelas com cores do tema */
+        .star-rating .star {
+            cursor: pointer;
+            font-size: 2rem;
+            color: #4a4a4a;
+            transition: color 0.1s, transform 0.1s;
+            display: inline-block;
+        }
+
+        .star-rating .star:hover {
+            transform: scale(1.1);
+        }
+
+        .star-rating .star.selected {
+            color: var(--accent-secondary);
+        }
+
+        .star-rating .star.half-selected {
+            background: linear-gradient(90deg, var(--accent-secondary) 50%, #4a4a4a 50%);
+            -webkit-background-clip: text;
+            -moz-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+    </style>
+</head>
+
+<body class="min-h-screen">
+
+    <!-- Cabeçalho e Navegação -->
+    <header class="bg-black bg-opacity-30 backdrop-blur-sm p-4 sticky top-0 z-40 shadow-lg"
+        style="--shadow-color: var(--shadow-color)">
+        <div class="container mx-auto flex justify-between items-center">
+            <h1 class="text-2xl lg:text-3xl font-magic" style="color: var(--text-header);">Biblioteca Arcana</h1>
+            <div class="flex items-center space-x-4 lg:space-x-6">
+                <nav class="flex space-x-1 sm:space-x-2">
+                    <button id="nav-library"
+                        class="px-3 py-2 text-xs sm:text-base sm:px-4 rounded-md glowing-border transition-all">Biblioteca</button>
+                    <button id="nav-reading"
+                        class="px-3 py-2 text-xs sm:text-base sm:px-4 rounded-md glowing-border transition-all">Lendo</button>
+                    <button id="nav-reviews"
+                        class="px-3 py-2 text-xs sm:text-base sm:px-4 rounded-md glowing-border transition-all">Resenhas</button>
+                    <a href="https://www.amazon.com.br/livros" target="_blank"
+                        class="px-3 py-2 text-xs sm:text-base sm:px-4 rounded-md glowing-border transition-all hover:bg-opacity-20"
+                        style="border-color: var(--border-secondary); color: var(--text-secondary); --hover-bg: var(--accent-primary)">Loja</a>
+                </nav>
+                <div class="flex items-center space-x-3 border-l pl-4 lg:pl-6"
+                    style="border-color: var(--border-secondary);">
+                    <button id="settings-btn"
+                        class="text-2xl text-gray-400 hover:text-white transition-colors">⚙️</button>
+                    <div id="nav-profile-btn" class="flex items-center space-x-3 cursor-pointer group">
+                        <span id="nav-profile-name"
+                            class="hidden md:block text-gray-200 group-hover:text-white transition-colors"></span>
+                        <img id="nav-profile-img" src="https://placehold.co/150x150/111827/d1d5db?text=Mago"
+                            alt="Foto do Perfil"
+                            class="w-10 h-10 rounded-full border-2 group-hover:border-opacity-100 transition-colors object-cover"
+                            style="border-color: var(--border-primary);">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Conteúdo Principal -->
+    <main class="container mx-auto p-4 md:p-8">
+        <!-- Seção da Biblioteca -->
+        <section id="library-view">
+            <div class="flex flex-col sm:flex-row justify-between items-center mb-6 gap-4">
+                <h2 class="text-4xl font-magic" style="color: var(--text-header);">Seus Tomos</h2>
+                <button id="add-book-btn"
+                    class="px-6 py-3 w-full sm:w-auto rounded-lg text-white font-bold glowing-border transition-transform transform hover:scale-105"
+                    style="background-color: var(--button-primary-bg); border-color: var(--accent-secondary);">Adicionar
+                    Livro</button>
+            </div>
+            <div id="book-grid"
+                class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-6"></div>
+            <p id="empty-library-msg" class="text-center text-xl mt-16 hidden" style="color: var(--text-secondary);">Sua
+                biblioteca está vazia.
+            </p>
+        </section>
+
+        <!-- Seção Lendo Atualmente -->
+        <section id="reading-view" class="view-hidden">
+            <h2 class="text-4xl font-magic text-center mb-8" style="color: var(--text-header);">Leituras Atuais</h2>
+            <div id="reading-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
+            </div>
+            <p id="empty-reading-msg" class="text-center text-xl mt-16 hidden" style="color: var(--text-secondary);">
+                Você não marcou nenhum
+                livro como leitura atual.</p>
+        </section>
+
+        <!-- Seção de Resenhas -->
+        <section id="reviews-view" class="view-hidden">
+            <h2 class="text-4xl font-magic text-center mb-8" style="color: var(--text-header);">Pergaminhos de Críticas
+            </h2>
+            <div id="reviews-grid" class="space-y-6 max-w-4xl mx-auto"></div>
+            <p id="empty-reviews-msg" class="text-center text-xl mt-16 hidden" style="color: var(--text-secondary);">
+                Você ainda não escreveu
+                nenhuma resenha.</p>
+        </section>
+
+        <!-- Seção de Conquistas -->
+        <section id="achievements-view" class="view-hidden">
+            <h2 class="text-4xl font-magic text-center mb-8" style="color: var(--text-header);">Salão de Conquistas</h2>
+            <div id="achievements-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"></div>
+        </section>
+    </main>
+
+    <!-- Modais -->
+    <div id="book-modal"
+        class="fixed inset-0 bg-black bg-opacity-70 backdrop-blur-sm flex items-center justify-center z-50 hidden">
+    </div>
+    <div id="profile-modal"
+        class="fixed inset-0 bg-black bg-opacity-70 backdrop-blur-sm flex items-center justify-center z-50 hidden">
+    </div>
+    <div id="review-modal"
+        class="fixed inset-0 bg-black bg-opacity-70 backdrop-blur-sm flex items-center justify-center z-50 hidden">
+    </div>
+    <div id="confirm-modal"
+        class="fixed inset-0 bg-black bg-opacity-70 backdrop-blur-sm flex items-center justify-center z-50 hidden">
+    </div>
+    <div id="settings-modal"
+        class="fixed inset-0 bg-black bg-opacity-70 backdrop-blur-sm flex items-center justify-center z-50 hidden">
+    </div>
+    <div id="achievement-toast"
+        class="fixed bottom-5 right-5 bg-gradient-to-r text-white p-4 rounded-xl shadow-2xl border-2 transform translate-x-[120%] transition-transform duration-500 ease-out z-50"
+        style="from: var(--bg-secondary); to: var(--bg-primary); border-color: var(--border-secondary);"></div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- SELETORES DE ELEMENTOS DO DOM ---
+            const dom = {
+                views: {
+                    library: document.getElementById('library-view'),
+                    reading: document.getElementById('reading-view'),
+                    reviews: document.getElementById('reviews-view'),
+                    achievements: document.getElementById('achievements-view'),
+                },
+                navButtons: {
+                    library: document.getElementById('nav-library'),
+                    reading: document.getElementById('nav-reading'),
+                    reviews: document.getElementById('nav-reviews'),
+                },
+                grids: {
+                    book: document.getElementById('book-grid'),
+                    reading: document.getElementById('reading-grid'),
+                    reviews: document.getElementById('reviews-grid'),
+                    achievements: document.getElementById('achievements-grid'),
+                },
+                emptyMessages: {
+                    library: document.getElementById('empty-library-msg'),
+                    reading: document.getElementById('empty-reading-msg'),
+                    reviews: document.getElementById('empty-reviews-msg'),
+                },
+                modals: {
+                    book: document.getElementById('book-modal'),
+                    profile: document.getElementById('profile-modal'),
+                    review: document.getElementById('review-modal'),
+                    confirm: document.getElementById('confirm-modal'),
+                    settings: document.getElementById('settings-modal'),
+                },
+                buttons: {
+                    addBook: document.getElementById('add-book-btn'),
+                    navProfile: document.getElementById('nav-profile-btn'),
+                    settings: document.getElementById('settings-btn'),
+                },
+                profile: {
+                    img: document.getElementById('nav-profile-img'),
+                    name: document.getElementById('nav-profile-name'),
+                },
+                toast: document.getElementById('achievement-toast'),
+            };
+
+            // --- ESTADO DA APLICAÇÃO ---
+            const DEFAULT_PROFILE_IMAGE = 'https://placehold.co/150x150/111827/d1d5db?text=Mago';
+            let state = {
+                books: [],
+                reviews: [],
+                currentlyReading: [],
+                profile: { username: 'Novo Mago', imageUrl: DEFAULT_PROFILE_IMAGE },
+                achievements: initializeAchievements(),
+                readBooks: new Set(),
+            };
+            let confirmCallback = null;
+            let newImageDataUrl = null;
+
+            // --- TEMPLATES HTML ---
+            function getModalTemplate(id, title, formContent) {
+                return `<div class="p-8 rounded-xl border shadow-2xl shadow-black w-full max-w-md m-4 transform transition-all duration-300 scale-95 opacity-0" style="background-color: var(--bg-secondary); border-color: var(--border-secondary);"><h2 class="text-3xl font-magic mb-6" style="color: var(--text-header);">${title}</h2><form id="${id}-form" class="space-y-4">${formContent}</form></div>`;
+            }
+
+            function initializeModalTemplates() {
+                dom.modals.book.innerHTML = getModalTemplate('book', 'Adicionar Novo Tomo', `
+                    <input type="hidden" id="book-id">
+                    <div><label for="title" class="block mb-1" style="color: var(--text-secondary);">Título</label><input type="text" id="title" class="w-full p-2 rounded border text-white focus:outline-none focus:ring-2" style="background-color: var(--bg-primary); border-color: var(--border-secondary); --ring-color: var(--accent-primary);" required></div>
+                    <div><label for="author" class="block mb-1" style="color: var(--text-secondary);">Autor</label><input type="text" id="author" class="w-full p-2 rounded border text-white focus:outline-none focus:ring-2" style="background-color: var(--bg-primary); border-color: var(--border-secondary); --ring-color: var(--accent-primary);" required></div>
+                    <div><label for="cover-url" class="block mb-1" style="color: var(--text-secondary);">URL da Capa</label><input type="url" id="cover-url" class="w-full p-2 rounded border text-white focus:outline-none focus:ring-2" style="background-color: var(--bg-primary); border-color: var(--border-secondary); --ring-color: var(--accent-primary);" required></div>
+                    <div><label for="pdf-url" class="block mb-1" style="color: var(--text-secondary);">URL do PDF (Opcional)</label><input type="url" id="pdf-url" class="w-full p-2 rounded border text-white focus:outline-none focus:ring-2" style="background-color: var(--bg-primary); border-color: var(--border-secondary); --ring-color: var(--accent-primary);"></div>
+                    <div class="flex justify-end space-x-4 pt-4"><button type="button" class="cancel-btn px-6 py-2 rounded-lg bg-gray-600 hover:bg-gray-500 text-white">Cancelar</button><button type="submit" class="px-6 py-2 rounded-lg text-white glowing-border" style="background-color: var(--button-primary-bg); border-color: var(--accent-secondary);">Salvar Livro</button></div>
+                `);
+
+                dom.modals.profile.innerHTML = getModalTemplate('profile', 'Perfil do Mago', `
+                    <img id="profile-modal-img" src="" alt="Foto do Perfil" class="w-32 h-32 rounded-full mx-auto mb-4 border-4 object-cover" style="border-color: var(--border-primary);">
+                    <div><label for="username-input" class="block text-left mb-1" style="color: var(--text-secondary);">Nome de Usuário:</label><input type="text" id="username-input" class="w-full p-2 rounded border text-white focus:outline-none focus:ring-2" style="background-color: var(--bg-primary); border-color: var(--border-secondary); --ring-color: var(--accent-primary);"></div>
+                    <div><label class="block text-left mb-1" style="color: var(--text-secondary);">Imagem de Perfil:</label><label for="image-upload-input" class="custom-file-upload">Escolher Arquivo</label><input type="file" id="image-upload-input" class="hidden" accept="image/*"><span id="file-chosen" class="ml-2 text-gray-400 text-sm">Nenhum arquivo escolhido</span></div>
+                    <div class="mt-6"><button type="button" id="show-achievements-btn" class="w-full px-6 py-2 rounded-lg bg-gray-800 hover:bg-gray-700 text-white">Ver Conquistas</button></div>
+                    <div class="flex justify-end space-x-4 pt-4"><button type="button" class="cancel-btn px-6 py-2 rounded-lg bg-gray-600 hover:bg-gray-500 text-white">Cancelar</button><button type="submit" class="px-6 py-2 rounded-lg text-white glowing-border" style="background-color: var(--button-primary-bg); border-color: var(--accent-secondary);">Salvar</button></div>
+                `);
+
+                dom.modals.review.innerHTML = getModalTemplate('review', 'Escrever Resenha', `
+                    <input type="hidden" id="review-book-id">
+                    <h3 id="review-book-title" class="text-xl font-bold mb-2" style="color: var(--text-primary);"></h3>
+                    <div><label class="block mb-1" style="color: var(--text-secondary);">Nota</label><div id="star-rating-input" class="star-rating flex" data-rating="0"><span class="star" data-value="1">★</span><span class="star" data-value="2">★</span><span class="star" data-value="3">★</span><span class="star" data-value="4">★</span><span class="star" data-value="5">★</span></div></div>
+                    <div><label for="review-text" class="block mb-1" style="color: var(--text-secondary);">Sua Resenha</label><textarea id="review-text" rows="5" class="w-full p-2 rounded border text-white focus:outline-none focus:ring-2" style="background-color: var(--bg-primary); border-color: var(--border-secondary); --ring-color: var(--accent-primary);"></textarea></div>
+                    <div class="flex justify-end space-x-4 pt-4"><button type="button" class="cancel-btn px-6 py-2 rounded-lg bg-gray-600 hover:bg-gray-500 text-white">Cancelar</button><button type="submit" class="px-6 py-2 rounded-lg text-white glowing-border" style="background-color: var(--button-primary-bg); border-color: var(--accent-secondary);">Salvar Resenha</button></div>
+                `);
+
+                dom.modals.settings.innerHTML = `<div class="p-8 rounded-xl border shadow-2xl shadow-black w-full max-w-md m-4 transform transition-all duration-300 scale-95 opacity-0" style="background-color: var(--bg-secondary); border-color: var(--border-secondary);">
+                    <h2 class="text-3xl font-magic mb-6" style="color: var(--text-header);">Configurações</h2>
+                    <div class="space-y-6">
+                        <div>
+                            <h3 class="text-lg font-bold mb-3" style="color: var(--text-primary);">Tema da Interface</h3>
+                            <div class="grid grid-cols-3 gap-3">
+                                <button class="theme-btn p-2 rounded border-2" data-theme="arcana" style="background-color: #1a1a2e; border-color: #b8860b;">Arcana</button>
+                                <button class="theme-btn p-2 rounded border-2" data-theme="sonserina" style="background-color: #0D1A13; border-color: #2A623D;">Sonserina</button>
+                                <button class="theme-btn p-2 rounded border-2" data-theme="dark" style="background-color: #111827; border-color: #991b1b;">Dark</button>
+                                <button class="theme-btn p-2 rounded border-2" data-theme="celestial" style="background-color: #0f172a; border-color: #8b5cf6;">Celestial</button>
+                                <button class="theme-btn p-2 rounded border-2 text-black" data-theme="pergaminho" style="background-color: #fdf6e3; border-color: #a1887f;">Pergaminho</button>
+                                <button class="theme-btn p-2 rounded border-2" data-theme="oceano" style="background-color: #0b192f; border-color: #64ffda;">Oceano</button>
+                            </div>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-bold mb-3" style="color: var(--text-primary);">Música Ambiente</h3>
+                            <iframe width="100%" height="200" src="https://www.youtube.com/embed/1ZYbU82GVz4?si=sTcZl_fZgq3qMH4N" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                        </div>
+                    </div>
+                    <div class="flex justify-end pt-6"><button type="button" class="cancel-btn px-6 py-2 rounded-lg bg-gray-600 hover:bg-gray-500 text-white">Fechar</button></div>
+                </div>`;
+
+                dom.modals.confirm.innerHTML = `<div class="p-8 rounded-xl border shadow-2xl shadow-black w-full max-w-sm m-4" style="background-color: var(--bg-secondary); border-color: #b91c1c;"><h2 class="text-2xl font-magic text-red-400 mb-4">Confirmar Ação</h2><p id="confirm-message" class="mb-6 text-gray-300"></p><div class="flex justify-end space-x-4"><button id="confirm-cancel-btn" class="px-6 py-2 rounded-lg bg-gray-600 hover:bg-gray-500 text-white">Cancelar</button><button id="confirm-ok-btn" class="px-6 py-2 rounded-lg bg-red-800 hover:bg-red-700 text-white glowing-border border-red-600">Confirmar</button></div></div>`;
+                dom.toast.innerHTML = `<div class="flex items-center"><div class="text-3xl mr-3">🏆</div><div><h3 class="font-bold font-magic">Conquista Desbloqueada!</h3><p id="toast-text" class="text-sm"></p></div></div>`;
+            }
+
+            // --- PERSISTÊNCIA DE DADOS ---
+            function initializeAchievements() {
+                return [
+                    { id: 'first_book', name: 'O Início da Sabedoria', description: 'Adicione seu primeiro livro.', unlocked: false, condition: s => s.books.length >= 1 },
+                    { id: 'first_review', name: 'Pena de Crítico', description: 'Escreva sua primeira resenha.', unlocked: false, condition: s => s.reviews.length >= 1 },
+                    { id: 'currently_reading', name: 'Leitor Ativo', description: 'Marque um livro como leitura atual.', unlocked: false, condition: s => s.currentlyReading.length >= 1 },
+                    { id: 'archivist', name: 'Arquivista Mestre', description: 'Catalogue 10 livros.', unlocked: false, condition: s => s.books.length >= 10 },
+                    { id: 'first_read', name: 'Página Virada', description: 'Abra um livro para ler.', unlocked: false, condition: s => s.readBooks.size >= 1 },
+                    { id: 'self_portrait', name: 'Retrato Encantado', description: 'Personalize seu perfil.', unlocked: false, condition: s => s.profile.username !== 'Novo Mago' || s.profile.imageUrl !== DEFAULT_PROFILE_IMAGE },
+                ];
+            }
+
+            function loadData() {
+                const data = localStorage.getItem('arcaneLibraryDataV6');
+                if (data) {
+                    const parsedData = JSON.parse(data);
+                    const savedAchievements = new Map((parsedData.achievements || []).map(a => [a.id, a]));
+                    const currentAchievements = initializeAchievements().map(a => savedAchievements.has(a.id) ? { ...a, ...savedAchievements.get(a.id) } : a);
+                    state = { ...state, ...parsedData, achievements: currentAchievements, readBooks: new Set(parsedData.readBooks || []), currentlyReading: parsedData.currentlyReading || [] };
+                }
+            }
+
+            function saveData() {
+                const serializableState = { ...state, readBooks: Array.from(state.readBooks) };
+                localStorage.setItem('arcaneLibraryDataV6', JSON.stringify(serializableState));
+            }
+
+            // --- FUNÇÕES DE RENDERIZAÇÃO ---
+            function renderAll() {
+                renderLibrary();
+                renderProfile();
+                renderReadingList();
+                renderReviews();
+                renderAchievements();
+            }
+
+            function renderLibrary() {
+                dom.grids.book.innerHTML = '';
+                dom.emptyMessages.library.classList.toggle('hidden', state.books.length > 0);
+                state.books.forEach(book => {
+                    const isReading = state.currentlyReading.includes(book.id);
+                    const bookCard = document.createElement('div');
+                    bookCard.className = 'p-3 rounded-lg border shadow-lg flex flex-col justify-between transition-transform transform hover:-translate-y-2';
+                    bookCard.style.backgroundColor = 'var(--bg-card)';
+                    bookCard.style.borderColor = 'var(--border-secondary)';
+                    bookCard.style.boxShadow = '0 10px 15px -3px var(--shadow-color)';
+
+                    bookCard.innerHTML = `
+                        <div>
+                            <a href="${book.pdfUrl || '#'}" target="${book.pdfUrl ? '_blank' : '_self'}" class="block" data-book-id="${book.id}" ${!book.pdfUrl ? 'onclick="return false;" style="cursor:default;"' : ''}>
+                                <img src="${book.coverUrl}" alt="Capa de ${book.title}" class="w-full h-auto object-cover rounded-md mb-3 aspect-[2/3]" onerror="this.src='https://placehold.co/200x300/111827/d1d5db?text=Capa'">
+                                <h3 class="font-bold leading-tight" style="color: var(--text-primary);">${book.title}</h3>
+                                <p class="text-sm mb-2" style="color: var(--text-secondary);">${book.author}</p>
+                            </a>
+                        </div>
+                        <div class="space-y-2 mt-2">
+                            <button class="reading-btn text-sm w-full py-1 rounded ${isReading ? '' : 'bg-gray-700 hover:bg-gray-600'}" data-id="${book.id}" style="${isReading ? 'background-color: var(--button-primary-bg); color: white;' : ''}">${isReading ? 'Lendo Atualmente ✓' : 'Marcar como Leitura'}</button>
+                            <div class="flex justify-between items-center pt-1">
+                                <button class="review-btn text-sm" data-id="${book.id}" style="color: var(--accent-secondary);">Resenha ✍️</button>
+                                <div class="space-x-2">
+                                    <button class="edit-btn text-blue-400 hover:text-blue-300" data-id="${book.id}">✏️</button>
+                                    <button class="delete-btn text-red-400 hover:text-red-300" data-id="${book.id}">🗑️</button>
+                                </div>
+                            </div>
+                        </div>`;
+                    dom.grids.book.appendChild(bookCard);
+                });
+            }
+
+            function renderProfile() {
+                dom.profile.name.textContent = state.profile.username;
+                dom.profile.img.src = state.profile.imageUrl;
+                dom.profile.img.onerror = () => { dom.profile.img.src = DEFAULT_PROFILE_IMAGE };
+            }
+
+            function renderReadingList() {
+                dom.grids.reading.innerHTML = '';
+                dom.emptyMessages.reading.classList.toggle('hidden', state.currentlyReading.length > 0);
+                const readingBooks = state.books.filter(book => state.currentlyReading.includes(book.id));
+                readingBooks.forEach(book => {
+                    const review = state.reviews.find(r => r.bookId === book.id);
+                    const reviewHTML = review ? `<p class="text-sm mt-2 italic" style="color: var(--text-secondary);">'${review.text.substring(0, 80)}...'</p>` : `<p class="text-sm mt-2 italic" style="color: var(--text-secondary);">Nenhuma resenha ainda.</p>`;
+                    const card = document.createElement('div');
+                    card.className = 'p-4 rounded-lg border flex gap-4 items-start';
+                    card.style.backgroundColor = 'var(--bg-card)';
+                    card.style.borderColor = 'var(--border-secondary)';
+                    card.innerHTML = `
+                        <img src="${book.coverUrl}" alt="Capa de ${book.title}" class="w-20 h-auto object-cover rounded-md aspect-[2/3]" onerror="this.src='https://placehold.co/100x150/111827/d1d5db?text=Capa'">
+                        <div class="flex-1">
+                            <h3 class="text-xl font-bold" style="color: var(--text-primary);">${book.title}</h3>
+                            <p class="text-sm mb-2" style="color: var(--text-secondary);">por ${book.author}</p>
+                            ${reviewHTML}
+                        </div>`;
+                    dom.grids.reading.appendChild(card);
+                });
+            }
+
+            function renderReviews() {
+                dom.grids.reviews.innerHTML = '';
+                dom.emptyMessages.reviews.classList.toggle('hidden', state.reviews.length > 0);
+                const booksById = new Map(state.books.map(b => [b.id, b]));
+                state.reviews.forEach(review => {
+                    const book = booksById.get(review.bookId);
+                    if (book) {
+                        const reviewCard = document.createElement('div');
+                        reviewCard.className = 'p-6 rounded-lg border flex gap-6 items-start';
+                        reviewCard.style.backgroundColor = 'var(--bg-card)';
+                        reviewCard.style.borderColor = 'var(--border-secondary)';
+
+                        let starsHTML = '';
+                        for (let i = 1; i <= 5; i++) {
+                            if (review.rating >= i) starsHTML += `<span style="color: var(--accent-secondary);">★</span>`;
+                            else if (review.rating >= i - 0.5) starsHTML += `<span class="half-selected" style="background: linear-gradient(90deg, var(--accent-secondary) 50%, #4a4a4a 50%); -webkit-background-clip: text; background-clip: text; color: transparent;">★</span>`;
+                            else starsHTML += `<span class="text-gray-600">★</span>`;
+                        }
+                        reviewCard.innerHTML = `
+                            <img src="${book.coverUrl}" alt="Capa de ${book.title}" class="w-24 h-auto object-cover rounded-md aspect-[2/3]" onerror="this.src='https://placehold.co/100x150/111827/d1d5db?text=Capa'">
+                            <div class="flex-1">
+                                <h3 class="text-2xl font-magic" style="color: var(--text-primary);">${book.title}</h3>
+                                <p class="text-sm mb-2" style="color: var(--text-secondary);">por ${book.author}</p>
+                                <div class="flex text-2xl mb-3">${starsHTML}</div>
+                                <p class="whitespace-pre-wrap" style="color: var(--text-primary);">${review.text}</p>
+                            </div>`;
+                        dom.grids.reviews.appendChild(reviewCard);
+                    }
+                });
+            }
+
+            function renderAchievements() {
+                dom.grids.achievements.innerHTML = state.achievements.map(ach => `
+                    <div class="p-4 rounded-lg border-2 flex flex-col items-center text-center transition-all duration-300 ${ach.unlocked ? 'shadow-lg' : 'bg-opacity-50'}" style="${ach.unlocked ? `background-color: var(--bg-card); border-color: var(--border-primary); box-shadow: 0 0 15px var(--shadow-color);` : `background-color: var(--bg-secondary); border-color: var(--border-secondary);`}">
+                        <div class="text-5xl mb-3 ${ach.unlocked ? '' : 'grayscale opacity-50'}">🏆</div>
+                        <h3 class="font-magic text-lg" style="color: ${ach.unlocked ? 'var(--text-header)' : 'var(--text-secondary)'};">${ach.name}</h3>
+                        <p class="text-sm" style="color: ${ach.unlocked ? 'var(--text-primary)' : 'var(--text-secondary)'};">${ach.description}</p>
+                    </div>`).join('');
+            }
+
+            // --- LÓGICA DE NAVEGAÇÃO E MODAIS ---
+            function switchView(viewName) {
+                Object.values(dom.views).forEach(view => view.classList.add('view-hidden'));
+                dom.views[viewName].classList.remove('view-hidden');
+                Object.keys(dom.navButtons).forEach(key => {
+                    const btn = dom.navButtons[key];
+                    if (btn) {
+                        const isActive = key === viewName;
+                        btn.style.backgroundColor = isActive ? 'var(--accent-primary)' : 'transparent';
+                        btn.style.color = isActive ? 'white' : 'var(--text-secondary)';
+                        btn.style.borderColor = isActive ? 'var(--border-primary)' : 'var(--border-secondary)';
+                    }
+                });
+            }
+
+            function openModal(modalEl) {
+                modalEl.classList.remove('hidden');
+                setTimeout(() => modalEl.querySelector('div').classList.remove('scale-95', 'opacity-0'), 10);
+            }
+
+            function closeModal(modalEl) {
+                modalEl.querySelector('div').classList.add('scale-95', 'opacity-0');
+                setTimeout(() => modalEl.classList.add('hidden'), 300);
+            }
+
+            // --- LÓGICA DE TEMAS ---
+            function applyTheme(themeName) {
+                document.body.dataset.theme = themeName;
+                localStorage.setItem('arcane-theme', themeName);
+            }
+
+            function loadTheme() {
+                const savedTheme = localStorage.getItem('arcane-theme') || 'arcana';
+                applyTheme(savedTheme);
+            }
+
+            // --- HANDLERS DE EVENTOS ---
+            function handleBookFormSubmit(e) {
+                e.preventDefault();
+                const form = e.target;
+                const id = form.querySelector('#book-id').value;
+                const bookData = {
+                    title: form.querySelector('#title').value,
+                    author: form.querySelector('#author').value,
+                    coverUrl: form.querySelector('#cover-url').value,
+                    pdfUrl: form.querySelector('#pdf-url').value,
+                };
+                if (id) {
+                    const index = state.books.findIndex(b => b.id == id);
+                    if (index !== -1) state.books[index] = { ...state.books[index], ...bookData };
+                } else {
+                    state.books.push({ id: Date.now(), ...bookData });
+                }
+                saveData();
+                renderAll();
+                checkAchievements();
+                closeModal(dom.modals.book);
+            }
+
+            function handleProfileFormSubmit(e) {
+                e.preventDefault();
+                state.profile.username = dom.modals.profile.querySelector('#username-input').value;
+                if (newImageDataUrl) state.profile.imageUrl = newImageDataUrl;
+                saveData();
+                renderProfile();
+                checkAchievements();
+                closeModal(dom.modals.profile);
+            }
+
+            function handleReviewFormSubmit(e) {
+                e.preventDefault();
+                const form = e.target;
+                const bookId = parseInt(form.querySelector('#review-book-id').value);
+                const rating = parseFloat(dom.modals.review.querySelector('#star-rating-input').dataset.rating);
+                const text = form.querySelector('#review-text').value;
+                const reviewIndex = state.reviews.findIndex(r => r.bookId === bookId);
+                if (reviewIndex > -1) {
+                    state.reviews[reviewIndex] = { ...state.reviews[reviewIndex], rating, text };
+                } else {
+                    state.reviews.push({ bookId, rating, text });
+                }
+                saveData();
+                renderReviews();
+                renderReadingList();
+                checkAchievements();
+                closeModal(dom.modals.review);
+            }
+
+            function handleBookGridClick(e) {
+                const target = e.target;
+                const id = parseInt(target.closest('[data-id]')?.dataset.id);
+                if (!id) return;
+
+                if (target.closest('.delete-btn')) {
+                    openConfirmModal('Tem certeza que deseja excluir este livro?', () => {
+                        state.books = state.books.filter(b => b.id !== id);
+                        state.reviews = state.reviews.filter(r => r.bookId !== id);
+                        state.currentlyReading = state.currentlyReading.filter(bookId => bookId !== id);
+                        saveData();
+                        renderAll();
+                    });
+                } else if (target.closest('.edit-btn')) {
+                    const book = state.books.find(b => b.id === id);
+                    if (book) {
+                        const form = dom.modals.book.querySelector('form');
+                        form.reset();
+                        dom.modals.book.querySelector('h2').textContent = 'Editar Tomo';
+                        form.querySelector('#book-id').value = book.id;
+                        form.querySelector('#title').value = book.title;
+                        form.querySelector('#author').value = book.author;
+                        form.querySelector('#cover-url').value = book.coverUrl;
+                        form.querySelector('#pdf-url').value = book.pdfUrl;
+                        openModal(dom.modals.book);
+                    }
+                } else if (target.closest('.review-btn')) {
+                    const book = state.books.find(b => b.id === id);
+                    if (book) {
+                        const form = dom.modals.review.querySelector('form');
+                        form.reset();
+                        dom.modals.review.querySelector('#review-book-title').textContent = book.title;
+                        form.querySelector('#review-book-id').value = book.id;
+                        const existingReview = state.reviews.find(r => r.bookId === id);
+                        const rating = existingReview ? existingReview.rating : 0;
+                        const starRatingInput = dom.modals.review.querySelector('#star-rating-input');
+                        starRatingInput.dataset.rating = rating;
+                        setStars(rating);
+                        form.querySelector('#review-text').value = existingReview ? existingReview.text : '';
+                        openModal(dom.modals.review);
+                    }
+                } else if (target.closest('.reading-btn')) {
+                    const index = state.currentlyReading.indexOf(id);
+                    if (index > -1) {
+                        state.currentlyReading.splice(index, 1);
+                    } else {
+                        state.currentlyReading.push(id);
+                    }
+                    saveData();
+                    renderLibrary();
+                    renderReadingList();
+                    checkAchievements();
+                } else if (target.closest('a')?.hasAttribute('target')) {
+                    if (!state.readBooks.has(id.toString())) {
+                        state.readBooks.add(id.toString());
+                        saveData();
+                        checkAchievements();
+                    }
+                }
+            }
+
+            function handleImageUpload(e) {
+                const file = e.target.files[0];
+                if (file) {
+                    dom.modals.profile.querySelector('#file-chosen').textContent = file.name.length > 25 ? file.name.substring(0, 22) + '...' : file.name;
+                    const reader = new FileReader();
+                    reader.onload = (event) => {
+                        newImageDataUrl = event.target.result;
+                        dom.modals.profile.querySelector('#profile-modal-img').src = newImageDataUrl;
+                    };
+                    reader.readAsDataURL(file);
+                }
+            }
+
+            function handleStarRatingEvent(e) {
+                const star = e.target.closest('.star');
+                if (!star) return;
+                const rect = star.getBoundingClientRect();
+                const value = star.dataset.value;
+                const isHalf = (e.clientX - rect.left) < rect.width / 2;
+                const rating = isHalf ? value - 0.5 : value;
+                const starRatingInput = dom.modals.review.querySelector('#star-rating-input');
+
+                if (e.type === 'click') {
+                    starRatingInput.dataset.rating = rating;
+                }
+                setStars(rating);
+            }
+
+            function setStars(rating) {
+                const starRatingInput = dom.modals.review.querySelector('#star-rating-input');
+                const stars = starRatingInput.querySelectorAll('.star');
+                stars.forEach(star => {
+                    const starValue = parseFloat(star.dataset.value);
+                    star.classList.remove('selected', 'half-selected');
+                    if (rating >= starValue) {
+                        star.classList.add('selected');
+                    } else if (rating >= starValue - 0.5) {
+                        star.classList.add('half-selected');
+                    }
+                });
+            }
+
+            function openConfirmModal(message, callback) {
+                dom.modals.confirm.querySelector('#confirm-message').textContent = message;
+                confirmCallback = callback;
+                openModal(dom.modals.confirm);
+            }
+
+            function checkAchievements() {
+                let achievementUnlocked = false;
+                state.achievements.forEach(ach => {
+                    if (!ach.unlocked && ach.condition(state)) {
+                        ach.unlocked = true;
+                        document.getElementById('toast-text').textContent = ach.name;
+                        dom.toast.classList.remove('translate-x-[120%]');
+                        setTimeout(() => dom.toast.classList.add('translate-x-[120%]'), 4000);
+                        achievementUnlocked = true;
+                    }
+                });
+                if (achievementUnlocked) {
+                    saveData();
+                    renderAchievements();
+                }
+            }
+
+            function handleOpenProfileModal() {
+                const profileModal = dom.modals.profile;
+                profileModal.querySelector('#username-input').value = state.profile.username;
+                profileModal.querySelector('#profile-modal-img').src = state.profile.imageUrl;
+                profileModal.querySelector('#file-chosen').textContent = 'Nenhum arquivo escolhido';
+                newImageDataUrl = null; // Reset temp image data
+                openModal(profileModal);
+            }
+
+            // --- INICIALIZAÇÃO ---
+            function setupEventListeners() {
+                Object.keys(dom.navButtons).forEach(key => dom.navButtons[key].addEventListener('click', () => switchView(key)));
+                dom.buttons.addBook.addEventListener('click', () => openModal(dom.modals.book));
+                dom.buttons.navProfile.addEventListener('click', handleOpenProfileModal);
+                dom.buttons.settings.addEventListener('click', () => openModal(dom.modals.settings));
+
+                dom.modals.book.querySelector('form').addEventListener('submit', handleBookFormSubmit);
+                dom.modals.profile.querySelector('form').addEventListener('submit', handleProfileFormSubmit);
+                dom.modals.review.querySelector('form').addEventListener('submit', handleReviewFormSubmit);
+
+                dom.grids.book.addEventListener('click', handleBookGridClick);
+                dom.modals.profile.querySelector('#image-upload-input').addEventListener('change', handleImageUpload);
+                dom.modals.profile.querySelector('#show-achievements-btn').addEventListener('click', () => {
+                    closeModal(dom.modals.profile);
+                    switchView('achievements');
+                });
+
+                dom.modals.settings.querySelectorAll('.theme-btn').forEach(btn => {
+                    btn.addEventListener('click', () => applyTheme(btn.dataset.theme));
+                });
+
+                const starRatingInput = dom.modals.review.querySelector('#star-rating-input');
+                starRatingInput.addEventListener('click', handleStarRatingEvent);
+                starRatingInput.addEventListener('mousemove', handleStarRatingEvent);
+                starRatingInput.addEventListener('mouseleave', () => setStars(starRatingInput.dataset.rating));
+
+                document.body.addEventListener('click', e => {
+                    const modal = e.target.closest('.fixed.inset-0');
+                    if (modal && (e.target === modal || e.target.closest('.cancel-btn'))) {
+                        closeModal(modal);
+                    }
+                });
+
+                document.getElementById('confirm-ok-btn').addEventListener('click', () => {
+                    if (confirmCallback) confirmCallback();
+                    closeModal(dom.modals.confirm);
+                });
+                document.getElementById('confirm-cancel-btn').addEventListener('click', () => closeModal(dom.modals.confirm));
+            }
+
+            function init() {
+                initializeModalTemplates();
+                loadData();
+                loadTheme();
+                renderAll();
+                setupEventListeners();
+                switchView('library');
+            }
+
+            init();
+        });
+    </script>
+</body>
+
+</html>
