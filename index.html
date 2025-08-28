@@ -8,7 +8,7 @@
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Google Fonts -->
-    <link rel="icon" href="favicon.png" type="image/png">
+    <link rel="icon" href="https://placehold.co/32x32/1a1a2e/ffc700?text=A" type="image/png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Inter:wght@400;500;700&display=swap"
@@ -103,7 +103,7 @@
             --shadow-hover-color: rgba(141, 110, 99, 0.8);
             --button-primary-bg: #8d6e63;
             --button-primary-hover: #6d4c41;
-            --bg-image: url('https://www.transparenttextures.com/patterns/old-paper-屑.png');
+            --bg-image: url('https://www.transparenttextures.com/patterns/old-paper.png');
         }
 
         [data-theme="oceano"] {
@@ -210,6 +210,11 @@
             background-clip: text;
             color: transparent;
         }
+        
+        /* Menu hamburguer para mobile */
+        #menu-toggle:checked + #menu {
+            display: block;
+        }
     </style>
 </head>
 
@@ -219,17 +224,32 @@
     <header class="bg-black bg-opacity-30 backdrop-blur-sm p-4 sticky top-0 z-40 shadow-lg"
         style="--shadow-color: var(--shadow-color)">
         <div class="container mx-auto flex justify-between items-center">
-            <h1 class="text-2xl lg:text-3xl font-magic" style="color: var(--text-header);">Biblioteca Arcana</h1>
-            <div class="flex items-center space-x-4 lg:space-x-6">
+            <h1 class="text-xl sm:text-2xl lg:text-3xl font-magic" style="color: var(--text-header);">Biblioteca Arcana</h1>
+            
+            <!-- Menu Hamburguer (visível em telas pequenas) -->
+            <div class="md:hidden flex items-center">
+                 <div id="nav-profile-btn-mobile" class="flex items-center space-x-3 cursor-pointer group mr-4">
+                    <img id="nav-profile-img-mobile" src="https://placehold.co/150x150/111827/d1d5db?text=Mago"
+                        alt="Foto do Perfil"
+                        class="w-10 h-10 rounded-full border-2 group-hover:border-opacity-100 transition-colors object-cover"
+                        style="border-color: var(--border-primary);">
+                </div>
+                <button id="menu-button" class="text-white focus:outline-none">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                </button>
+            </div>
+
+            <!-- Navegação Principal (visível em telas médias e grandes) -->
+            <div class="hidden md:flex items-center space-x-4 lg:space-x-6">
                 <nav class="flex space-x-1 sm:space-x-2">
                     <button id="nav-library"
-                        class="px-3 py-2 text-xs sm:text-base sm:px-4 rounded-md glowing-border transition-all">Biblioteca</button>
+                        class="px-3 py-2 text-sm sm:text-base sm:px-4 rounded-md glowing-border transition-all">Biblioteca</button>
                     <button id="nav-reading"
-                        class="px-3 py-2 text-xs sm:text-base sm:px-4 rounded-md glowing-border transition-all">Lendo</button>
+                        class="px-3 py-2 text-sm sm:text-base sm:px-4 rounded-md glowing-border transition-all">Lendo</button>
                     <button id="nav-reviews"
-                        class="px-3 py-2 text-xs sm:text-base sm:px-4 rounded-md glowing-border transition-all">Resenhas</button>
+                        class="px-3 py-2 text-sm sm:text-base sm:px-4 rounded-md glowing-border transition-all">Resenhas</button>
                     <a href="https://www.amazon.com.br/livros" target="_blank"
-                        class="px-3 py-2 text-xs sm:text-base sm:px-4 rounded-md glowing-border transition-all hover:bg-opacity-20"
+                        class="px-3 py-2 text-sm sm:text-base sm:px-4 rounded-md glowing-border transition-all hover:bg-opacity-20"
                         style="border-color: var(--border-secondary); color: var(--text-secondary); --hover-bg: var(--accent-primary)">Loja</a>
                 </nav>
                 <div class="flex items-center space-x-3 border-l pl-4 lg:pl-6"
@@ -238,7 +258,7 @@
                         class="text-2xl text-gray-400 hover:text-white transition-colors">⚙️</button>
                     <div id="nav-profile-btn" class="flex items-center space-x-3 cursor-pointer group">
                         <span id="nav-profile-name"
-                            class="hidden md:block text-gray-200 group-hover:text-white transition-colors"></span>
+                            class="hidden lg:block text-gray-200 group-hover:text-white transition-colors"></span>
                         <img id="nav-profile-img" src="https://placehold.co/150x150/111827/d1d5db?text=Mago"
                             alt="Foto do Perfil"
                             class="w-10 h-10 rounded-full border-2 group-hover:border-opacity-100 transition-colors object-cover"
@@ -247,21 +267,34 @@
                 </div>
             </div>
         </div>
+        <!-- Menu Dropdown Mobile -->
+        <div id="mobile-menu" class="md:hidden hidden mt-4">
+            <nav class="flex flex-col space-y-2">
+                <button id="nav-library-mobile" class="px-3 py-2 rounded-md glowing-border transition-all text-left">Biblioteca</button>
+                <button id="nav-reading-mobile" class="px-3 py-2 rounded-md glowing-border transition-all text-left">Lendo</button>
+                <button id="nav-reviews-mobile" class="px-3 py-2 rounded-md glowing-border transition-all text-left">Resenhas</button>
+                <a href="https://www.amazon.com.br/livros" target="_blank" class="px-3 py-2 rounded-md glowing-border transition-all hover:bg-opacity-20" style="border-color: var(--border-secondary); color: var(--text-secondary); --hover-bg: var(--accent-primary)">Loja</a>
+                <button id="settings-btn-mobile" class="px-3 py-2 rounded-md glowing-border transition-all text-left flex items-center">
+                    <span class="mr-2">⚙️</span> Configurações
+                </button>
+            </nav>
+        </div>
     </header>
+
 
     <!-- Conteúdo Principal -->
     <main class="container mx-auto p-4 md:p-8">
         <!-- Seção da Biblioteca -->
         <section id="library-view">
             <div class="flex flex-col sm:flex-row justify-between items-center mb-6 gap-4">
-                <h2 class="text-4xl font-magic" style="color: var(--text-header);">Seus Tomos</h2>
+                <h2 class="text-3xl sm:text-4xl font-magic" style="color: var(--text-header);">Seus Tomos</h2>
                 <button id="add-book-btn"
                     class="px-6 py-3 w-full sm:w-auto rounded-lg text-white font-bold glowing-border transition-transform transform hover:scale-105"
                     style="background-color: var(--button-primary-bg); border-color: var(--accent-secondary);">Adicionar
                     Livro</button>
             </div>
             <div id="book-grid"
-                class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-6"></div>
+                class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 sm:gap-6"></div>
             <p id="empty-library-msg" class="text-center text-xl mt-16 hidden" style="color: var(--text-secondary);">Sua
                 biblioteca está vazia.
             </p>
@@ -269,7 +302,7 @@
 
         <!-- Seção Lendo Atualmente -->
         <section id="reading-view" class="view-hidden">
-            <h2 class="text-4xl font-magic text-center mb-8" style="color: var(--text-header);">Leituras Atuais</h2>
+            <h2 class="text-3xl sm:text-4xl font-magic text-center mb-8" style="color: var(--text-header);">Leituras Atuais</h2>
             <div id="reading-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
             </div>
             <p id="empty-reading-msg" class="text-center text-xl mt-16 hidden" style="color: var(--text-secondary);">
@@ -279,7 +312,7 @@
 
         <!-- Seção de Resenhas -->
         <section id="reviews-view" class="view-hidden">
-            <h2 class="text-4xl font-magic text-center mb-8" style="color: var(--text-header);">Pergaminhos de Críticas
+            <h2 class="text-3xl sm:text-4xl font-magic text-center mb-8" style="color: var(--text-header);">Pergaminhos de Críticas
             </h2>
             <div id="reviews-grid" class="space-y-6 max-w-4xl mx-auto"></div>
             <p id="empty-reviews-msg" class="text-center text-xl mt-16 hidden" style="color: var(--text-secondary);">
@@ -289,26 +322,26 @@
 
         <!-- Seção de Conquistas -->
         <section id="achievements-view" class="view-hidden">
-            <h2 class="text-4xl font-magic text-center mb-8" style="color: var(--text-header);">Salão de Conquistas</h2>
-            <div id="achievements-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"></div>
+            <h2 class="text-3xl sm:text-4xl font-magic text-center mb-8" style="color: var(--text-header);">Salão de Conquistas</h2>
+            <div id="achievements-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6"></div>
         </section>
     </main>
 
     <!-- Modais -->
     <div id="book-modal"
-        class="fixed inset-0 bg-black bg-opacity-70 backdrop-blur-sm flex items-center justify-center z-50 hidden">
+        class="fixed inset-0 bg-black bg-opacity-70 backdrop-blur-sm flex items-center justify-center z-50 hidden p-4">
     </div>
     <div id="profile-modal"
-        class="fixed inset-0 bg-black bg-opacity-70 backdrop-blur-sm flex items-center justify-center z-50 hidden">
+        class="fixed inset-0 bg-black bg-opacity-70 backdrop-blur-sm flex items-center justify-center z-50 hidden p-4">
     </div>
     <div id="review-modal"
-        class="fixed inset-0 bg-black bg-opacity-70 backdrop-blur-sm flex items-center justify-center z-50 hidden">
+        class="fixed inset-0 bg-black bg-opacity-70 backdrop-blur-sm flex items-center justify-center z-50 hidden p-4">
     </div>
     <div id="confirm-modal"
-        class="fixed inset-0 bg-black bg-opacity-70 backdrop-blur-sm flex items-center justify-center z-50 hidden">
+        class="fixed inset-0 bg-black bg-opacity-70 backdrop-blur-sm flex items-center justify-center z-50 hidden p-4">
     </div>
     <div id="settings-modal"
-        class="fixed inset-0 bg-black bg-opacity-70 backdrop-blur-sm flex items-center justify-center z-50 hidden">
+        class="fixed inset-0 bg-black bg-opacity-70 backdrop-blur-sm flex items-center justify-center z-50 hidden p-4">
     </div>
     <div id="achievement-toast"
         class="fixed bottom-5 right-5 bg-gradient-to-r text-white p-4 rounded-xl shadow-2xl border-2 transform translate-x-[120%] transition-transform duration-500 ease-out z-50"
@@ -328,6 +361,9 @@
                     library: document.getElementById('nav-library'),
                     reading: document.getElementById('nav-reading'),
                     reviews: document.getElementById('nav-reviews'),
+                    libraryMobile: document.getElementById('nav-library-mobile'),
+                    readingMobile: document.getElementById('nav-reading-mobile'),
+                    reviewsMobile: document.getElementById('nav-reviews-mobile'),
                 },
                 grids: {
                     book: document.getElementById('book-grid'),
@@ -350,13 +386,18 @@
                 buttons: {
                     addBook: document.getElementById('add-book-btn'),
                     navProfile: document.getElementById('nav-profile-btn'),
+                    navProfileMobile: document.getElementById('nav-profile-btn-mobile'),
                     settings: document.getElementById('settings-btn'),
+                    settingsMobile: document.getElementById('settings-btn-mobile'),
+                    menu: document.getElementById('menu-button'),
                 },
                 profile: {
                     img: document.getElementById('nav-profile-img'),
+                    imgMobile: document.getElementById('nav-profile-img-mobile'),
                     name: document.getElementById('nav-profile-name'),
                 },
                 toast: document.getElementById('achievement-toast'),
+                mobileMenu: document.getElementById('mobile-menu'),
             };
 
             // --- ESTADO DA APLICAÇÃO ---
@@ -374,7 +415,7 @@
 
             // --- TEMPLATES HTML ---
             function getModalTemplate(id, title, formContent) {
-                return `<div class="p-8 rounded-xl border shadow-2xl shadow-black w-full max-w-md m-4 transform transition-all duration-300 scale-95 opacity-0" style="background-color: var(--bg-secondary); border-color: var(--border-secondary);"><h2 class="text-3xl font-magic mb-6" style="color: var(--text-header);">${title}</h2><form id="${id}-form" class="space-y-4">${formContent}</form></div>`;
+                return `<div class="p-6 sm:p-8 rounded-xl border shadow-2xl shadow-black w-full max-w-md m-4 transform transition-all duration-300 scale-95 opacity-0" style="background-color: var(--bg-secondary); border-color: var(--border-secondary);"><h2 class="text-2xl sm:text-3xl font-magic mb-6" style="color: var(--text-header);">${title}</h2><form id="${id}-form" class="space-y-4">${formContent}</form></div>`;
             }
 
             function initializeModalTemplates() {
@@ -403,12 +444,12 @@
                     <div class="flex justify-end space-x-4 pt-4"><button type="button" class="cancel-btn px-6 py-2 rounded-lg bg-gray-600 hover:bg-gray-500 text-white">Cancelar</button><button type="submit" class="px-6 py-2 rounded-lg text-white glowing-border" style="background-color: var(--button-primary-bg); border-color: var(--accent-secondary);">Salvar Resenha</button></div>
                 `);
 
-                dom.modals.settings.innerHTML = `<div class="p-8 rounded-xl border shadow-2xl shadow-black w-full max-w-md m-4 transform transition-all duration-300 scale-95 opacity-0" style="background-color: var(--bg-secondary); border-color: var(--border-secondary);">
-                    <h2 class="text-3xl font-magic mb-6" style="color: var(--text-header);">Configurações</h2>
+                dom.modals.settings.innerHTML = `<div class="p-6 sm:p-8 rounded-xl border shadow-2xl shadow-black w-full max-w-md m-4 transform transition-all duration-300 scale-95 opacity-0" style="background-color: var(--bg-secondary); border-color: var(--border-secondary);">
+                    <h2 class="text-2xl sm:text-3xl font-magic mb-6" style="color: var(--text-header);">Configurações</h2>
                     <div class="space-y-6">
                         <div>
                             <h3 class="text-lg font-bold mb-3" style="color: var(--text-primary);">Tema da Interface</h3>
-                            <div class="grid grid-cols-3 gap-3">
+                            <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
                                 <button class="theme-btn p-2 rounded border-2" data-theme="arcana" style="background-color: #1a1a2e; border-color: #b8860b;">Arcana</button>
                                 <button class="theme-btn p-2 rounded border-2" data-theme="sonserina" style="background-color: #0D1A13; border-color: #2A623D;">Sonserina</button>
                                 <button class="theme-btn p-2 rounded border-2" data-theme="dark" style="background-color: #111827; border-color: #991b1b;">Dark</button>
@@ -419,7 +460,9 @@
                         </div>
                         <div>
                             <h3 class="text-lg font-bold mb-3" style="color: var(--text-primary);">Música Ambiente</h3>
-                            <iframe width="100%" height="200" src="https://www.youtube.com/embed/1ZYbU82GVz4?si=sTcZl_fZgq3qMH4N" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                            <div class="aspect-w-16 aspect-h-9">
+                                <iframe class="w-full h-full" src="https://www.youtube.com/embed/1ZYbU82GVz4?si=sTcZl_fZgq3qMH4N" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                            </div>
                         </div>
                     </div>
                     <div class="flex justify-end pt-6"><button type="button" class="cancel-btn px-6 py-2 rounded-lg bg-gray-600 hover:bg-gray-500 text-white">Fechar</button></div>
@@ -442,18 +485,26 @@
             }
 
             function loadData() {
-                const data = localStorage.getItem('arcaneLibraryDataV6');
-                if (data) {
-                    const parsedData = JSON.parse(data);
-                    const savedAchievements = new Map((parsedData.achievements || []).map(a => [a.id, a]));
-                    const currentAchievements = initializeAchievements().map(a => savedAchievements.has(a.id) ? { ...a, ...savedAchievements.get(a.id) } : a);
-                    state = { ...state, ...parsedData, achievements: currentAchievements, readBooks: new Set(parsedData.readBooks || []), currentlyReading: parsedData.currentlyReading || [] };
+                try {
+                    const data = localStorage.getItem('arcaneLibraryDataV6');
+                    if (data) {
+                        const parsedData = JSON.parse(data);
+                        const savedAchievements = new Map((parsedData.achievements || []).map(a => [a.id, a]));
+                        const currentAchievements = initializeAchievements().map(a => savedAchievements.has(a.id) ? { ...a, ...savedAchievements.get(a.id) } : a);
+                        state = { ...state, ...parsedData, achievements: currentAchievements, readBooks: new Set(parsedData.readBooks || []), currentlyReading: parsedData.currentlyReading || [] };
+                    }
+                } catch (error) {
+                    console.error("Failed to load data from localStorage:", error);
                 }
             }
 
             function saveData() {
-                const serializableState = { ...state, readBooks: Array.from(state.readBooks) };
-                localStorage.setItem('arcaneLibraryDataV6', JSON.stringify(serializableState));
+                try {
+                    const serializableState = { ...state, readBooks: Array.from(state.readBooks) };
+                    localStorage.setItem('arcaneLibraryDataV6', JSON.stringify(serializableState));
+                } catch (error) {
+                    console.error("Failed to save data to localStorage:", error);
+                }
             }
 
             // --- FUNÇÕES DE RENDERIZAÇÃO ---
@@ -471,7 +522,7 @@
                 state.books.forEach(book => {
                     const isReading = state.currentlyReading.includes(book.id);
                     const bookCard = document.createElement('div');
-                    bookCard.className = 'p-3 rounded-lg border shadow-lg flex flex-col justify-between transition-transform transform hover:-translate-y-2';
+                    bookCard.className = 'p-3 rounded-lg border shadow-lg flex flex-col justify-between transition-transform transform hover:-translate-y-1';
                     bookCard.style.backgroundColor = 'var(--bg-card)';
                     bookCard.style.borderColor = 'var(--border-secondary)';
                     bookCard.style.boxShadow = '0 10px 15px -3px var(--shadow-color)';
@@ -479,15 +530,15 @@
                     bookCard.innerHTML = `
                         <div>
                             <a href="${book.pdfUrl || '#'}" target="${book.pdfUrl ? '_blank' : '_self'}" class="block" data-book-id="${book.id}" ${!book.pdfUrl ? 'onclick="return false;" style="cursor:default;"' : ''}>
-                                <img src="${book.coverUrl}" alt="Capa de ${book.title}" class="w-full h-auto object-cover rounded-md mb-3 aspect-[2/3]" onerror="this.src='https://placehold.co/200x300/111827/d1d5db?text=Capa'">
-                                <h3 class="font-bold leading-tight" style="color: var(--text-primary);">${book.title}</h3>
-                                <p class="text-sm mb-2" style="color: var(--text-secondary);">${book.author}</p>
+                                <img src="${book.coverUrl}" alt="Capa de ${book.title}" class="w-full h-auto object-cover rounded-md mb-3 aspect-[2/3]" onerror="this.onerror=null;this.src='https://placehold.co/200x300/111827/d1d5db?text=Capa'">
+                                <h3 class="font-bold leading-tight text-sm sm:text-base" style="color: var(--text-primary);">${book.title}</h3>
+                                <p class="text-xs sm:text-sm mb-2" style="color: var(--text-secondary);">${book.author}</p>
                             </a>
                         </div>
-                        <div class="space-y-2 mt-2">
-                            <button class="reading-btn text-sm w-full py-1 rounded ${isReading ? '' : 'bg-gray-700 hover:bg-gray-600'}" data-id="${book.id}" style="${isReading ? 'background-color: var(--button-primary-bg); color: white;' : ''}">${isReading ? 'Lendo Atualmente ✓' : 'Marcar como Leitura'}</button>
+                        <div class="space-y-2 mt-2 text-xs sm:text-sm">
+                            <button class="reading-btn w-full py-1 rounded ${isReading ? '' : 'bg-gray-700 hover:bg-gray-600'}" data-id="${book.id}" style="${isReading ? 'background-color: var(--button-primary-bg); color: white;' : ''}">${isReading ? 'Lendo Atualmente ✓' : 'Marcar como Leitura'}</button>
                             <div class="flex justify-between items-center pt-1">
-                                <button class="review-btn text-sm" data-id="${book.id}" style="color: var(--accent-secondary);">Resenha ✍️</button>
+                                <button class="review-btn" data-id="${book.id}" style="color: var(--accent-secondary);">Resenha ✍️</button>
                                 <div class="space-x-2">
                                     <button class="edit-btn text-blue-400 hover:text-blue-300" data-id="${book.id}">✏️</button>
                                     <button class="delete-btn text-red-400 hover:text-red-300" data-id="${book.id}">🗑️</button>
@@ -501,7 +552,9 @@
             function renderProfile() {
                 dom.profile.name.textContent = state.profile.username;
                 dom.profile.img.src = state.profile.imageUrl;
+                dom.profile.imgMobile.src = state.profile.imageUrl;
                 dom.profile.img.onerror = () => { dom.profile.img.src = DEFAULT_PROFILE_IMAGE };
+                dom.profile.imgMobile.onerror = () => { dom.profile.imgMobile.src = DEFAULT_PROFILE_IMAGE };
             }
 
             function renderReadingList() {
@@ -516,9 +569,9 @@
                     card.style.backgroundColor = 'var(--bg-card)';
                     card.style.borderColor = 'var(--border-secondary)';
                     card.innerHTML = `
-                        <img src="${book.coverUrl}" alt="Capa de ${book.title}" class="w-20 h-auto object-cover rounded-md aspect-[2/3]" onerror="this.src='https://placehold.co/100x150/111827/d1d5db?text=Capa'">
+                        <img src="${book.coverUrl}" alt="Capa de ${book.title}" class="w-20 h-auto object-cover rounded-md aspect-[2/3]" onerror="this.onerror=null;this.src='https://placehold.co/100x150/111827/d1d5db?text=Capa'">
                         <div class="flex-1">
-                            <h3 class="text-xl font-bold" style="color: var(--text-primary);">${book.title}</h3>
+                            <h3 class="text-lg sm:text-xl font-bold" style="color: var(--text-primary);">${book.title}</h3>
                             <p class="text-sm mb-2" style="color: var(--text-secondary);">por ${book.author}</p>
                             ${reviewHTML}
                         </div>`;
@@ -534,7 +587,7 @@
                     const book = booksById.get(review.bookId);
                     if (book) {
                         const reviewCard = document.createElement('div');
-                        reviewCard.className = 'p-6 rounded-lg border flex gap-6 items-start';
+                        reviewCard.className = 'p-4 sm:p-6 rounded-lg border flex flex-col sm:flex-row gap-4 sm:gap-6 items-start';
                         reviewCard.style.backgroundColor = 'var(--bg-card)';
                         reviewCard.style.borderColor = 'var(--border-secondary)';
 
@@ -545,11 +598,11 @@
                             else starsHTML += `<span class="text-gray-600">★</span>`;
                         }
                         reviewCard.innerHTML = `
-                            <img src="${book.coverUrl}" alt="Capa de ${book.title}" class="w-24 h-auto object-cover rounded-md aspect-[2/3]" onerror="this.src='https://placehold.co/100x150/111827/d1d5db?text=Capa'">
-                            <div class="flex-1">
-                                <h3 class="text-2xl font-magic" style="color: var(--text-primary);">${book.title}</h3>
+                            <img src="${book.coverUrl}" alt="Capa de ${book.title}" class="w-24 mx-auto sm:mx-0 h-auto object-cover rounded-md aspect-[2/3]" onerror="this.onerror=null;this.src='https://placehold.co/100x150/111827/d1d5db?text=Capa'">
+                            <div class="flex-1 text-center sm:text-left">
+                                <h3 class="text-xl sm:text-2xl font-magic" style="color: var(--text-primary);">${book.title}</h3>
                                 <p class="text-sm mb-2" style="color: var(--text-secondary);">por ${book.author}</p>
-                                <div class="flex text-2xl mb-3">${starsHTML}</div>
+                                <div class="flex text-2xl mb-3 justify-center sm:justify-start">${starsHTML}</div>
                                 <p class="whitespace-pre-wrap" style="color: var(--text-primary);">${review.text}</p>
                             </div>`;
                         dom.grids.reviews.appendChild(reviewCard);
@@ -561,33 +614,51 @@
                 dom.grids.achievements.innerHTML = state.achievements.map(ach => `
                     <div class="p-4 rounded-lg border-2 flex flex-col items-center text-center transition-all duration-300 ${ach.unlocked ? 'shadow-lg' : 'bg-opacity-50'}" style="${ach.unlocked ? `background-color: var(--bg-card); border-color: var(--border-primary); box-shadow: 0 0 15px var(--shadow-color);` : `background-color: var(--bg-secondary); border-color: var(--border-secondary);`}">
                         <div class="text-5xl mb-3 ${ach.unlocked ? '' : 'grayscale opacity-50'}">🏆</div>
-                        <h3 class="font-magic text-lg" style="color: ${ach.unlocked ? 'var(--text-header)' : 'var(--text-secondary)'};">${ach.name}</h3>
-                        <p class="text-sm" style="color: ${ach.unlocked ? 'var(--text-primary)' : 'var(--text-secondary)'};">${ach.description}</p>
+                        <h3 class="font-magic text-base sm:text-lg" style="color: ${ach.unlocked ? 'var(--text-header)' : 'var(--text-secondary)'};">${ach.name}</h3>
+                        <p class="text-xs sm:text-sm" style="color: ${ach.unlocked ? 'var(--text-primary)' : 'var(--text-secondary)'};">${ach.description}</p>
                     </div>`).join('');
             }
 
             // --- LÓGICA DE NAVEGAÇÃO E MODAIS ---
             function switchView(viewName) {
                 Object.values(dom.views).forEach(view => view.classList.add('view-hidden'));
-                dom.views[viewName].classList.remove('view-hidden');
-                Object.keys(dom.navButtons).forEach(key => {
+                if(dom.views[viewName]) {
+                    dom.views[viewName].classList.remove('view-hidden');
+                }
+                
+                ['library', 'reading', 'reviews'].forEach(key => {
                     const btn = dom.navButtons[key];
-                    if (btn) {
+                    const btnMobile = dom.navButtons[key + 'Mobile'];
+                    if (btn && btnMobile) {
                         const isActive = key === viewName;
-                        btn.style.backgroundColor = isActive ? 'var(--accent-primary)' : 'transparent';
-                        btn.style.color = isActive ? 'white' : 'var(--text-secondary)';
-                        btn.style.borderColor = isActive ? 'var(--border-primary)' : 'var(--border-secondary)';
+                        const activeStyle = {
+                            backgroundColor: 'var(--accent-primary)',
+                            color: 'white',
+                            borderColor: 'var(--border-primary)'
+                        };
+                        const inactiveStyle = {
+                            backgroundColor: 'transparent',
+                            color: 'var(--text-secondary)',
+                            borderColor: 'var(--border-secondary)'
+                        };
+                        Object.assign(btn.style, isActive ? activeStyle : inactiveStyle);
+                        Object.assign(btnMobile.style, isActive ? activeStyle : inactiveStyle);
                     }
                 });
+                dom.mobileMenu.classList.add('hidden'); // Esconde o menu mobile após a seleção
             }
 
             function openModal(modalEl) {
                 modalEl.classList.remove('hidden');
-                setTimeout(() => modalEl.querySelector('div').classList.remove('scale-95', 'opacity-0'), 10);
+                setTimeout(() => {
+                    const innerDiv = modalEl.querySelector('div');
+                    if(innerDiv) innerDiv.classList.remove('scale-95', 'opacity-0');
+                }, 10);
             }
 
             function closeModal(modalEl) {
-                modalEl.querySelector('div').classList.add('scale-95', 'opacity-0');
+                const innerDiv = modalEl.querySelector('div');
+                if (innerDiv) innerDiv.classList.add('scale-95', 'opacity-0');
                 setTimeout(() => modalEl.classList.add('hidden'), 300);
             }
 
@@ -791,31 +862,65 @@
 
             // --- INICIALIZAÇÃO ---
             function setupEventListeners() {
-                Object.keys(dom.navButtons).forEach(key => dom.navButtons[key].addEventListener('click', () => switchView(key)));
-                dom.buttons.addBook.addEventListener('click', () => openModal(dom.modals.book));
+                // Navegação
+                Object.keys(dom.navButtons).forEach(key => {
+                    if (dom.navButtons[key]) {
+                        dom.navButtons[key].addEventListener('click', () => {
+                            // Extrai o nome base da view (ex: 'library' de 'libraryMobile')
+                            const viewName = key.replace('Mobile', '');
+                            switchView(viewName);
+                        });
+                    }
+                });
+                
+                // Botão do menu hamburguer
+                dom.buttons.menu.addEventListener('click', () => {
+                    dom.mobileMenu.classList.toggle('hidden');
+                });
+                
+                // Botões principais
+                dom.buttons.addBook.addEventListener('click', () => {
+                    const form = dom.modals.book.querySelector('form');
+                    form.reset();
+                    dom.modals.book.querySelector('h2').textContent = 'Adicionar Novo Tomo';
+                    form.querySelector('#book-id').value = '';
+                    openModal(dom.modals.book)
+                });
                 dom.buttons.navProfile.addEventListener('click', handleOpenProfileModal);
+                dom.buttons.navProfileMobile.addEventListener('click', handleOpenProfileModal);
                 dom.buttons.settings.addEventListener('click', () => openModal(dom.modals.settings));
+                dom.buttons.settingsMobile.addEventListener('click', () => {
+                    dom.mobileMenu.classList.add('hidden');
+                    openModal(dom.modals.settings)
+                });
 
+                // Submissão de Forms
                 dom.modals.book.querySelector('form').addEventListener('submit', handleBookFormSubmit);
                 dom.modals.profile.querySelector('form').addEventListener('submit', handleProfileFormSubmit);
                 dom.modals.review.querySelector('form').addEventListener('submit', handleReviewFormSubmit);
 
+                // Cliques na grade de livros
                 dom.grids.book.addEventListener('click', handleBookGridClick);
+                
+                // Modal de Perfil
                 dom.modals.profile.querySelector('#image-upload-input').addEventListener('change', handleImageUpload);
                 dom.modals.profile.querySelector('#show-achievements-btn').addEventListener('click', () => {
                     closeModal(dom.modals.profile);
                     switchView('achievements');
                 });
 
+                // Modal de Configurações (Temas)
                 dom.modals.settings.querySelectorAll('.theme-btn').forEach(btn => {
                     btn.addEventListener('click', () => applyTheme(btn.dataset.theme));
                 });
 
+                // Avaliação por estrelas
                 const starRatingInput = dom.modals.review.querySelector('#star-rating-input');
                 starRatingInput.addEventListener('click', handleStarRatingEvent);
                 starRatingInput.addEventListener('mousemove', handleStarRatingEvent);
                 starRatingInput.addEventListener('mouseleave', () => setStars(starRatingInput.dataset.rating));
 
+                // Fechar modais
                 document.body.addEventListener('click', e => {
                     const modal = e.target.closest('.fixed.inset-0');
                     if (modal && (e.target === modal || e.target.closest('.cancel-btn'))) {
@@ -823,6 +928,7 @@
                     }
                 });
 
+                // Modal de confirmação
                 document.getElementById('confirm-ok-btn').addEventListener('click', () => {
                     if (confirmCallback) confirmCallback();
                     closeModal(dom.modals.confirm);
