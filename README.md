@@ -36,7 +36,7 @@
 
 ###
 
-<h3 align="left">🛠 Linguagens e Habilidades</h3>
+<h3 align="left">🛠 Linguagens e Habilidades :</h3>
 
 ###
 
@@ -88,5 +88,6 @@
     <img src="https://spotify-recently-played-readme.vercel.app/api?user=31wokqtivn7dniezo5dgucs6kewq&count=5" alt="Spotify recently played"  />
   </a>
 </div>
+
 
 ###
