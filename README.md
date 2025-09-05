@@ -18,6 +18,12 @@
 
 ###
 
+<div align="center">
+  <img src="https://visitor-badge.laobi.icu/badge?page_id=bryanwinchezz.bryanwinchezz&"  />
+</div>
+
+###
+
 <h1 align="center">Olá, programador! 👋</h1>
 
 ###
@@ -66,8 +72,22 @@
 
 ###
 
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/bryanwinchezz/bryanwinchezz/output/pacman-contribution-graph-dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/bryanwinchezz/bryanwinchezz/output/pacman-contribution-graph.svg">
+  <img alt="pacman contribution graph" src="https://raw.githubusercontent.com/bryanwinchezz/bryanwinchezz/output/pacman-contribution-graph.svg">
+</picture>
+
+###
+
+<h3 align="left">🎶   Minhas Músicas :</h3>
+
+###
+
 <div align="center">
-  <img src="https://streak-stats.demolab.com?user=bryanwinchezz&locale=en&mode=daily&theme=dark&hide_border=false&border_radius=5&order=3" height="220" alt="streak graph"  />
+  <a href="https://open.spotify.com/user/31wokqtivn7dniezo5dgucs6kewq">
+    <img src="https://spotify-recently-played-readme.vercel.app/api?user=31wokqtivn7dniezo5dgucs6kewq&count=5" alt="Spotify recently played"  />
+  </a>
 </div>
 
 ###
